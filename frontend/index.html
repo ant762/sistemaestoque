@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Painel de Controle - Estoque</title>
+  <link rel="stylesheet" href="/frontend/style.css">
+</head>
+<body>
+  <main>
+    <h1>Painel de Controle de Estoque</h1>
+
+    <div id="mensagem" class="mensagem" aria-live="polite"></div>
+
+    <div id="lista-produtos"></div>
+
+    <section class="card">
+      <h2>Adicionar Novo Produto</h2>
+      <form id="form-adicionar">
+        <input type="text" id="novo-id" placeholder="ID (ex: 005)" required />
+        <input type="text" id="novo-nome" placeholder="Nome do produto" required />
+        <input type="number" id="novo-quantidade" placeholder="Quantidade inicial" min="0" required />
+        <button type="submit">Adicionar</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="/frontend/script.js"></script>
+</body>
+</html>
+
+
+asdasd
