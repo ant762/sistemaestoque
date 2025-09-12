@@ -61,7 +61,7 @@ app.post('/produtos/:id/saida', (req, res) => {
     const {id} = req.params;
     const { quantidade } = req.body;
     const numQuant = Number(quantidade);
-    if (isNaN(q) || q <= 0) {
+    if (isNaN(numQuant) || numQuant <= 0) {
         return res.status(400).json({ error: 'Quantidade deve ser um número positivo.' });
     }
     const produto = produtos.find(p => p.id === id);

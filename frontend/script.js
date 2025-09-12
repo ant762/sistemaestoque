@@ -110,23 +110,37 @@ async function postEntrada(id, quantidade, tr) {
 
 async function postSaida(id, quantidade, tr) {
     if (!quantidade || quantidade <= 0) {
-        alert('Digite uma quantidade válida (maior que zero). ');
+        alert('Digite uma quantidade válida (maior que zero).');
         return;
     }
+
+    console.log('Enviando saída para o produto:', id, 'Quantidade:', quantidade);
+
     try {
         const res = await fetch(`${api}/produtos/${id}/saida`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ quantidade })
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Erro ao registrar saída');
-        atualizarLinha(tr, data);
-        mostrarMensagem(`Saída registrada: -${quantidade} (${data.nome})`);
+
+        const textResponse = await res.text();  // Captura a resposta como texto
+        console.log('Resposta da API (como texto):', textResponse);  // Exibe o conteúdo da resposta
+
+        if (res.ok) {
+            const data = JSON.parse(textResponse);
+            atualizarLinha(tr, data);
+            mostrarMensagem(`Saída registrada: -${quantidade} (${data.nome})`);
+        } else {
+            console.error('Erro do servidor:', textResponse);  // Exibe o erro retornado pelo servidor
+            throw new Error('Erro ao registrar saída');
+        }
     } catch (err) {
-        alert('Erro: ' + err.message);
+        console.error('Erro ao registrar saída:', err);
+        alert('Erro ao registrar saída: ' + err.message);
     }
 }
+
+
 
 function atualizarLinha(tr, produtoAtualizado) {
     const quantidadeElemento = tr.querySelector('[data-quantidade]');
